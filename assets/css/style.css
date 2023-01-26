@@ -19,7 +19,7 @@ h1 {
 
 .play-deck {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
     gap: 1%;
     height: 80%;
 }
