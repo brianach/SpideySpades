@@ -1,0 +1,44 @@
+/* Black Spider Stylesheet */
+
+body {
+    background-color: green;
+    text-align: center;
+}
+
+h1 {
+    margin: 1%;
+}
+
+.play-area {
+    box-sizing: border-box;
+    width: 90%;
+    height: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.play-deck {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+    gap: 1%;
+    height: 80%;
+}
+
+.deal-deck {
+    height: 80px;
+    position: relative;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    border: solid;
+    border-radius: 10%;
+}
+
+.scores {
+    position: relative;
+    width: 50%;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
