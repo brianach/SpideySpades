@@ -14,9 +14,10 @@ document.addEventListener("DOMContentLoaded", function() {
     let buttons = document.getElementsByTagName("button");
 
     for (let button of buttons) {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function(e) {
+            console.log(e.currentTarget.id);
             if (this.getAttribute("data-type") === "playcard") {
-                alert("You clicked playcard!");
+                playCards();
             } else {
                 let newDeal = this.getAttribute("data-type");
                 alert(`You clicked ${newDeal}`);
@@ -38,7 +39,7 @@ function setTable() {
     for ( let row = 0 ; row < 5 ; row ++ ) {
         let row_cards = row_deal.splice(0, 10);
         console.log(row_cards);
-        //* populate the columns while array contains cards
+        //* populate the face down columns while array contains cards
         for ( let colmn = 0 ; colmn < row_cards.length ; colmn ++ ) {
             var curr_colmn = "c".concat(colmn) ;
             document.getElementById(curr_colmn).textContent = row_cards[colmn];
@@ -50,12 +51,11 @@ function setTable() {
 
 /** deal the face up cards row */
 function placeCards () { 
-    //*(create an array for the face up cards 
 
-    /** NOTE: At this point the face up row must be pushed into the face down pile as that 
-    will be referenced during the course of play for calculating moves and scores */
+    /** NOTE: At this point the face up row must be pushed into the face down array as that 
+    array be referenced during the course of play for calculating moves and scores */
 
-    //*for ( let face_up_row = 1 ; face_up_row < 7; face_up_row ++ ) {
+    //* split the first 10 entries in the spare card array to place face up on the table
         let flip_cards = spare_card.splice(0, 10);
         console.log(flip_cards);
         for ( let flip = 0 ; flip < flip_cards.length ; flip ++ ) {
