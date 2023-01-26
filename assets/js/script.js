@@ -4,7 +4,8 @@
 /** define arrays for storing card values */
 const card_deck = []; //* full deck
 const face_down = []; //* face down deck
-const spare_card = [];
+const spare_card = []; //* clone of card deck
+const row_deal = []; //* clone of face down cards
 
 setupCards();
 
@@ -32,23 +33,37 @@ function runGame() {
 
 /** set up the initial facedown card rows */
 function setTable() {
-
+    row_deal.push(...face_down); //* clone face down deck to row_deal
+    //* deal out each row of face down cards
+    for ( let row = 0 ; row < 5 ; row ++ ) {
+        let row_cards = row_deal.splice(0, 10);
+        console.log(row_cards);
+        //* populate the columns while array contains cards
+        for ( let colmn = 0 ; colmn < row_cards.length ; colmn ++ ) {
+            var curr_colmn = "c".concat(colmn) ;
+            document.getElementById(curr_colmn).textContent = row_cards[colmn];
+        }
+    }       
     /** place the first row of playing cards */
     placeCards();
 }
 
 /** deal the face up cards row */
 function placeCards () { 
-    for ( let row = 0 ; row < 5 ; row ++ ) {
-        let row_cards = face_down.splice(0, 10);
-        console.log(row_cards);
-        for ( let colmn = 0 ; colmn < row_cards.length ; colmn ++ ) {
-            var curr_colmn = "c".concat(colmn) ;
-            document.getElementById(curr_colmn).textContent = row_cards[colmn];
-        }
-    }        
-}
+    //*(create an array for the face up cards 
 
+    /** NOTE: At this point the face up row must be pushed into the face down pile as that 
+    will be referenced during the course of play for calculating moves and scores */
+
+    //*for ( let face_up_row = 1 ; face_up_row < 7; face_up_row ++ ) {
+        let flip_cards = spare_card.splice(0, 10);
+        console.log(flip_cards);
+        for ( let flip = 0 ; flip < flip_cards.length ; flip ++ ) {
+                var curr_flipcard = "c".concat(flip) ;
+                document.getElementById(curr_flipcard).textContent = flip_cards[flip];
+        }
+    //*} 
+}
 
 /** play the face up cards until all moves are done */
 function playCards() {
