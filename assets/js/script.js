@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (this.getAttribute("data-type") === "playcard") {
                 alert("You clicked playcard!");
             } else {
-                let gameType = this.getAttribute("data-type");
-                alert(`You clicked ${gameType}`);
+                let newDeal = this.getAttribute("data-type");
+                alert(`You clicked ${newDeal}`);
             }
         });
     }
@@ -39,15 +39,11 @@ function setTable() {
 
 /** deal the face up cards row */
 function placeCards () { 
-    card = 0 ;
-    colmn = 0 ;
-    for ( let row = 0 ; row < 4 ; row ++ ) {
-        alert(`laying down row ${row}`);
-        card = card + colmn ;
-        let row_cards = face_down.slice(card, card + 10);
-        for ( let colmn = 0 ; colmn < 10 ; colmn ++ ) {
+    for ( let row = 0 ; row < 5 ; row ++ ) {
+        let row_cards = face_down.splice(0, 10);
+        console.log(row_cards);
+        for ( let colmn = 0 ; colmn < row_cards.length ; colmn ++ ) {
             var curr_colmn = "c".concat(colmn) ;
-            alert(`current card is ${colmn} and card value is ${row_cards[colmn]}`);
             document.getElementById(curr_colmn).textContent = row_cards[colmn];
         }
     }        
@@ -86,7 +82,7 @@ spare_card.push(...card_deck); //* clone card_deck to spare_card
 
 //** split the face down and spare card deck 
 for ( let spare = 0 ; spare < 44 ; spare ++ ) {
-    face_down.push(spare_card.shift(spare)).toString();
+    face_down.push(spare_card.shift(spare)).toString(); //* push the first 44 cards to array
 }
 }
 
