@@ -20,6 +20,7 @@ const colmn_7 = [];
 const colmn_8 = [];
 const colmn_9 = [];
 
+selected_col = "";
 let click_time = 0 ; //* flag for mouse clicks
 
 setupCards();
@@ -30,12 +31,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (let button of buttons) {
         button.addEventListener("click", function(e) {
-            console.log(e.currentTarget.id); //* get the id of the object 
+            console.log(e.currentTarget.id); //* get the id of the object
+            selected_col =  e.currentTarget.id ;
             if (this.getAttribute("data-type") === "playcard") {
-                playCards(); //* call fucntion if click is in playing area
+                playCards(); //* call function if click is in playing area
             } else {
                 let newDeal = this.getAttribute("data-type");
-                dealCards(); //* call fuction to deal new row of cards
+                dealCards(); //* call function to deal new row of cards
             }
         });
     }
@@ -59,35 +61,15 @@ function setTable() {
         for ( let colmn = 0 ; colmn < row_cards.length ; colmn ++ ) { 
             var curr_colmn = "c".concat(colmn) ;
             colCard = row_cards[colmn];
-            /** The following if else loop sends the card value of the current row
-             * to the corresponding relative function to add that card to an array
-             * for the column where that card is placed
-             */
-                if (colmn == 0) {
-                    colmnZro(colCard);
-                } else if (colmn == 1) {
-                    colmnOne(colCard);
-                } else if (colmn == 2) {
-                    colmnTwo(colCard);
-                } else if (colmn == 3) {
-                    colmnThr(colCard);
-                } else if (colmn == 4) {
-                    colmnFre(colCard);
-                } else if (colmn == 5) {
-                    colmnFiv(colCard);
-                } else if (colmn == 6) {
-                    colmnSix(colCard);
-                } else if (colmn == 7) {
-                    colmnSev(colCard);
-                } else if (colmn == 8) {
-                    colmnEgt(colCard);
-                } else if (colmn == 9) {
-                    colmnNin(colCard);
-                } else {
-                    alert("Error in column allocation function!");
-                }
+            columnArrayFill(colmn, colCard);
         }
-    }       
+        }
+        //* add a null entry to differenciate the face down and face up cards
+        for ( let colmn = 0 ; colmn < 10 ; colmn ++ ) { 
+                colCard = NaN;
+                columnArrayFill(colmn, colCard);
+            }        
+
     /** place the first row of playing cards */
     dealCards();
 }
@@ -108,40 +90,22 @@ function dealCards () {
                  * to the corresponding relative function to add that card to an array
                  * for the column where that card is placed
                  */
-                    if (colmn == 0) {
-                        colmnZro(colCard);
-                    } else if (colmn == 1) {
-                        colmnOne(colCard);
-                    } else if (colmn == 2) {
-                        colmnTwo(colCard);
-                    } else if (colmn == 3) {
-                        colmnThr(colCard);
-                    } else if (colmn == 4) {
-                        colmnFre(colCard);
-                    } else if (colmn == 5) {
-                        colmnFiv(colCard);
-                    } else if (colmn == 6) {
-                        colmnSix(colCard);
-                    } else if (colmn == 7) {
-                        colmnSev(colCard);
-                    } else if (colmn == 8) {
-                        colmnEgt(colCard);
-                    } else if (colmn == 9) {
-                        colmnNin(colCard);
-                    } else {
-                        alert("Error in column allocation function!");
-                    }        
+                columnArrayFill(colmn, colCard);
         }
-    //*} 
 }
 
 /** play the face up cards until all moves are done */
 function playCards() {
 
     click_time ++ ;
-    console.log(click_time);
-    if (click_time >= 2) {
-        console.log(`two cards clicked ${click_time}`);
+    array_name1 = "colmn_".concat(selected_col.substr(-1));
+    if ( click_time >= 2 ) {
+        click_time = 0 ;
+        array_name2 = "colmn_".concat(selected_col.substr(-1));
+        if ( array_name1[array_name1.length] < array_name2[array_name2.length] ) {
+            alert("The force is with you!");
+        }
+
     }
 }
 
@@ -177,56 +141,67 @@ for ( let spare = 0 ; spare < 44 ; spare ++ ) {
 
 }
 
+function columnArrayFill(colmn) {
+            /** The following if else loop sends the card value of the current row
+             * to the corresponding relative function to add that card to an array
+             * for the column where that card is placed
+             */
+            if (colmn == 0) {
+                colmnZro(colCard);
+            } else if (colmn == 1) {
+                colmnOne(colCard);
+            } else if (colmn == 2) {
+                colmnTwo(colCard);
+            } else if (colmn == 3) {
+                colmnThr(colCard);
+            } else if (colmn == 4) {
+                colmnFre(colCard);
+            } else if (colmn == 5) {
+                colmnFiv(colCard);
+            } else if (colmn == 6) {
+                colmnSix(colCard);
+            } else if (colmn == 7) {
+                colmnSev(colCard);
+            } else if (colmn == 8) {
+                colmnEgt(colCard);
+            } else if (colmn == 9) {
+                colmnNin(colCard);
+            } else {
+                alert("Error in column allocation function!");
+            }
+}
+
+
 //* function to to push and pull cards in and out of each columns as the game is being played 
 function colmnZro(){
     colmn_0.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_0}`);
 }
 function colmnOne(){
     colmn_1.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_1}`);
 }
 function colmnTwo(){
     colmn_2.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_2}`);
 }
 function colmnThr(){
     colmn_3.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_3}`);
 }
 function colmnFre(){
     colmn_4.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_4}`);
 }
 function colmnFiv(){
     colmn_5.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_5}`);
 }
 function colmnSix(){
     colmn_6.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_6}`);
 }
 function colmnSev(){
     colmn_7.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_7}`);
 }
 function colmnEgt(){
     colmn_8.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_8}`);
 }
 function colmnNin(){
     colmn_9.push(colCard);
-    //* console.log(`${colCard} is the first entry in the temporary row-cards array.`)
-    //* console.log(`This is column 0 and the column array contents are ${colmn_9}`);
 }
 
 
