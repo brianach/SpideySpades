@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 playCards();
             } else {
                 let newDeal = this.getAttribute("data-type");
-                alert(`You clicked ${newDeal}`);
+                dealCards();
             }
         });
     }
