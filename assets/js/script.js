@@ -6,9 +6,9 @@ const card_deck = []; //* full deck
 const face_down = []; //* face down deck
 const spare_card = []; //* clone of card deck
 const row_deal = []; //* clone of face down cards
-const row_cards = [];
+const row_cards = []; //* temporary array for current face up cards
 
-//* create arrays for each column
+//* arrays for each column
 const colmn_0 = [];
 const colmn_1 = [];
 const colmn_2 = [];
@@ -20,7 +20,7 @@ const colmn_7 = [];
 const colmn_8 = [];
 const colmn_9 = [];
 
-let click_time = 0 ;
+let click_time = 0 ; //* flag for mouse clicks
 
 setupCards();
 
@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (let button of buttons) {
         button.addEventListener("click", function(e) {
-            console.log(e.currentTarget.id);
+            console.log(e.currentTarget.id); //* get the id of the object 
             if (this.getAttribute("data-type") === "playcard") {
-                playCards();
+                playCards(); //* call fucntion if click is in playing area
             } else {
                 let newDeal = this.getAttribute("data-type");
-                dealCards();
+                dealCards(); //* call fuction to deal new row of cards
             }
         });
     }
