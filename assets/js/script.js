@@ -21,8 +21,11 @@ const colmn_8 = [];
 const colmn_9 = [];
 
 let click_time = 0 ; //* flag for mouse clicks
+let move = 0 ; //* flag for moving cards
+let source_col = target_col = ""; //* to determine columnn in play area
 
 setupCards();
+setTable();
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -42,19 +45,37 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-setTable();
-
 function runGame() {}
 
+/** create the card deck */
+function setupCards() {
+
+//**  create a desk of 8 suits 
+    for ( let suits = 0 ; suits < 8 ; suits ++ ) {
+        for (let cards = 0 ; cards < 13 ; cards ++ ) {
+            card = cards + 1 ; 	    
+            card_deck.push(card).toString();
+    }
+    }
+
+    card_deck.sort(() => Math.random() - 0.5) ; /** shuffle deck */
+
+    spare_card.push(...card_deck); //* clone card_deck to spare_card
+
+    //** split the face down and spare card deck 
+    for ( let spare = 0 ; spare < 44 ; spare ++ ) {
+        face_down.push(spare_card.shift(spare)).toString(); //* push the first 44 cards to array
+    }
+}
+    
 //* set up the initial facedown card rows and add to column array
 function setTable() {
-    //* console.log(`face down deck in set table fuction ${face_down}`);
+
     row_deal.push(...face_down); //* clone face down deck to row_deal
     //* deal out each row of face down cards
     for ( let row = 0 ; row < 5 ; row ++ ) {
         let row_cards = row_deal.splice(0, 10);
-        //* console.log(`This is the array for row ${row} and contains ${row_cards}`);
-        //* populate the face down columns while array contains cards
+
         for ( let colmn = 0 ; colmn < row_cards.length ; colmn ++ ) { 
             var curr_colmn = "c".concat(colmn) ;
             colCard = row_cards[colmn];
@@ -98,48 +119,48 @@ function playCards() {
     getClickCol(selected_col) ;
     if ( click_time == 1 ) {
        card_1 = result ;  
+       source_col = selected_col ;
     }
     if ( click_time >= 2 ) {
         click_time = 0 ;
         card_2 = result ;
+        target_col = selected_col ;
         if ( card_1 < card_2 ) {
             alert('Legal move') ;
-            card_1 = card_2 = "" ;
+            moveCard(source_col, target_col) ;
+            card_1 = card_2 = source_col = target_col = "" ;
         } else if 
             ( card_1 >= card_2 ) {
                 alert ('Illegal move');
-                card_1, card_2 = "" ;
+                card_1 = card_2 = source_col = target_col = "" ;
             }
         }
 }
 
+function moveCard() {
+
+    move = 1 ;
+    while ( move < 3 ) {
+        if ( move == 1 ) {
+            colmn = source_col.substring(-1) ;
+            colCard = card_1 ;
+            columnArrayFill(move) ;
+            move = 2 ;
+        } else if 
+            ( move == 2 ) {
+                colmn = target_col.substring(-1) ;
+                colCard = popCard ;
+                columnArrayFill(move) ;
+                move = 3 ;
+            }
+        }
+}
 
 /** set the timer */
 function incTimer() {}
 
 /** set the score */
 function incScore() {}
-
-/** create the card deck */
-function setupCards() {
-
-//**  create a desk of 8 suits 
-    for ( let suits = 0 ; suits < 8 ; suits ++ ) {
-        for (let cards = 0 ; cards < 13 ; cards ++ ) {
-            card = cards + 1 ; 	    
-            card_deck.push(card).toString();
-    }
-    }
-
-    card_deck.sort(() => Math.random() - 0.5) ; /** shuffle deck */
-
-    spare_card.push(...card_deck); //* clone card_deck to spare_card
-
-    //** split the face down and spare card deck 
-    for ( let spare = 0 ; spare < 44 ; spare ++ ) {
-        face_down.push(spare_card.shift(spare)).toString(); //* push the first 44 cards to array
-    }
-}
 
 /** return the value from the currenttly selected card */
 function getClickCol(selected_col) {
@@ -165,7 +186,7 @@ function getClickCol(selected_col) {
     } else if ( selected_col === "c9" ) {
         result = colmn_9[colmn_9.length -1 ];
     } else {
-        alert(`Error in ${arguments.callee.name} function at line ${err.lineNumber}`);
+        errorAlert();
     }
 
 }
@@ -196,41 +217,144 @@ function columnArrayFill(colmn) {
             } else if (colmn == 9) {
                 colmnNin(colCard);
             } else {
-                alert(`Error in ${arguments.callee.name} function at line ${err.lineNumber}`);
+                errText = arguments.callee.name ;
+                errorAlert(errText);
             }
 }
 
 
 //* function to to push and pull cards in and out of each columns as the game is being played 
 function colmnZro(){
-    colmn_0.push(colCard);
-}
-function colmnOne(){
-    colmn_1.push(colCard);
-}
-function colmnTwo(){
-    colmn_2.push(colCard);
-}
-function colmnThr(){
-    colmn_3.push(colCard);
-}
-function colmnFre(){
-    colmn_4.push(colCard);
-}
-function colmnFiv(){
-    colmn_5.push(colCard);
-}
-function colmnSix(){
-    colmn_6.push(colCard);
-}
-function colmnSev(){
-    colmn_7.push(colCard);
-}
-function colmnEgt(){
-    colmn_8.push(colCard);
-}
-function colmnNin(){
-    colmn_9.push(colCard);
+    if ( move == 0) {
+        colmn_0.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_0.pop();
+    } else if ( move == 2 ) {
+        colmn_0.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
 }
 
+function colmnOne(){
+    if ( move == 0 ) {
+        colmn_1.push(colCard);      
+    } else if ( move == 1 ) {
+        popCard = colmn_1.pop();
+    } else if ( move == 2 ) {
+        colmn_1.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnTwo(){
+    if ( move == 0 ) {
+        colmn_2.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_2.pop();
+    } else if ( move == 2 ) {
+    colmn_2.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnThr(){
+    if ( move == 0 ) {
+        colmn_3.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_3.pop();
+    } else if ( move == 2 ) {        
+        colmn_3.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnFre(){
+    if ( move == 0 ) {
+        colmn_4.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_4.pop();
+    } else if ( move == 2 ) {
+        colmn_4.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnFiv(){
+    if ( move == 0 ) {
+        colmn_5.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_5.pop();
+    } else if ( move == 2 ) {
+        colmn_5.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnSix(){
+    if ( move == 0 ) {
+        colmn_6.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_6.pop();
+    } else if ( move == 2 ) {    
+        colmn_6.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnSev(){
+    if ( move == 0 ) {
+        colmn_7.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_7.pop();
+    } else if ( move == 2 ) {
+        colmn_7.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnEgt(){
+    if ( move == 0 ) {
+        colmn_8.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_8.pop();
+    } else if ( move == 2 ) {
+        colmn_8.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function colmnNin(){
+    if ( move == 0 ) {
+        colmn_9.push(colCard);
+    } else if ( move == 1 ) {
+        popCard = colmn_9.pop();
+    } else if ( move == 2 ) {
+        colmn_9.push(colCard);
+    } else {
+        errText = arguments.callee.name ;
+        errorAlert(errText);
+    }
+}
+
+function errorAlert() {
+    /**alert(`Error in ${errText}`);    */
+}
 
