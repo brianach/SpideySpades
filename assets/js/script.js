@@ -20,7 +20,6 @@ const colmn_7 = [];
 const colmn_8 = [];
 const colmn_9 = [];
 
-selected_col = "";
 let click_time = 0 ; //* flag for mouse clicks
 
 setupCards();
@@ -45,9 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 setTable();
 
-function runGame() {
-
-}
+function runGame() {}
 
 //* set up the initial facedown card rows and add to column array
 function setTable() {
@@ -78,7 +75,7 @@ function setTable() {
 function dealCards () { 
 
     /** NOTE: At this point the face up row must be pushed into the face down array as that 
-    array be referenced during the course of play for calculating moves and scores */
+    array will be referenced during the course of play for calculating moves and scores */
 
     //* split the first 10 entries in the spare card array to place face up on the table
         let flip_cards = spare_card.splice(0, 10);
@@ -98,46 +95,78 @@ function dealCards () {
 function playCards() {
 
     click_time ++ ;
-    array_name1 = "colmn_".concat(selected_col.substr(-1));
+    getClickCol(selected_col) ;
+    if ( click_time == 1 ) {
+       card_1 = result ;  
+    }
     if ( click_time >= 2 ) {
         click_time = 0 ;
-        array_name2 = "colmn_".concat(selected_col.substr(-1));
-        if ( array_name1[array_name1.length] < array_name2[array_name2.length] ) {
-            alert("The force is with you!");
+        card_2 = result ;
+        if ( card_1 < card_2 ) {
+            alert('Legal move') ;
+            card_1 = card_2 = "" ;
+        } else if 
+            ( card_1 >= card_2 ) {
+                alert ('Illegal move');
+                card_1, card_2 = "" ;
+            }
         }
-
-    }
 }
+
 
 /** set the timer */
-function incTimer() {
-
-}
+function incTimer() {}
 
 /** set the score */
-function incScore() {
-
-}
+function incScore() {}
 
 /** create the card deck */
 function setupCards() {
 
 //**  create a desk of 8 suits 
-for ( let suits = 0 ; suits < 8 ; suits ++ ) {
-	for (let cards = 0 ; cards < 13 ; cards ++ ) {
-	    card = cards + 1 ; 	    
-	    card_deck.push(card).toString();
-  }
+    for ( let suits = 0 ; suits < 8 ; suits ++ ) {
+        for (let cards = 0 ; cards < 13 ; cards ++ ) {
+            card = cards + 1 ; 	    
+            card_deck.push(card).toString();
+    }
+    }
+
+    card_deck.sort(() => Math.random() - 0.5) ; /** shuffle deck */
+
+    spare_card.push(...card_deck); //* clone card_deck to spare_card
+
+    //** split the face down and spare card deck 
+    for ( let spare = 0 ; spare < 44 ; spare ++ ) {
+        face_down.push(spare_card.shift(spare)).toString(); //* push the first 44 cards to array
+    }
 }
 
-card_deck.sort(() => Math.random() - 0.5) ; /** shuffle deck */
+/** return the value from the currenttly selected card */
+function getClickCol(selected_col) {
 
-spare_card.push(...card_deck); //* clone card_deck to spare_card
-
-//** split the face down and spare card deck 
-for ( let spare = 0 ; spare < 44 ; spare ++ ) {
-    face_down.push(spare_card.shift(spare)).toString(); //* push the first 44 cards to array
-}
+    if ( selected_col === "c0" ) {
+        result = colmn_0[colmn_0.length -1 ];
+    } else if ( selected_col === "c1" ) {
+        result = colmn_1[colmn_1.length -1 ];
+    } else if ( selected_col === "c2" ) {
+        result = colmn_2[colmn_2.length -1 ];
+    } else if ( selected_col === "c3" ) {
+        result = colmn_3[colmn_3.length -1 ];
+    } else if ( selected_col === "c4" ) {
+        result = colmn_4[colmn_4.length -1 ];
+    } else if ( selected_col === "c5" ) {
+        result = colmn_5[colmn_5.length -1 ];
+    } else if ( selected_col === "c6" ) {
+        result = colmn_6[colmn_6.length -1 ];
+    } else if ( selected_col === "c7" ) {
+        result = colmn_7[colmn_7.length -1 ];
+    } else if ( selected_col === "c8" ) {
+        result = colmn_8[colmn_8.length -1 ];
+    } else if ( selected_col === "c9" ) {
+        result = colmn_9[colmn_9.length -1 ];
+    } else {
+        alert(`Error in ${arguments.callee.name} function at line ${err.lineNumber}`);
+    }
 
 }
 
@@ -167,7 +196,7 @@ function columnArrayFill(colmn) {
             } else if (colmn == 9) {
                 colmnNin(colCard);
             } else {
-                alert("Error in column allocation function!");
+                alert(`Error in ${arguments.callee.name} function at line ${err.lineNumber}`);
             }
 }
 
