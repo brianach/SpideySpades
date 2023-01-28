@@ -142,13 +142,13 @@ function moveCard() {
     move = 1 ;
     while ( move < 3 ) {
         if ( move == 1 ) {
-            colmn = source_col.substring(-1) ;
+            colmn = parseInt(source_col.slice(1,2)) ;
             colCard = card_1 ;
             columnArrayFill(move) ;
             move = 2 ;
         } else if 
             ( move == 2 ) {
-                colmn = target_col.substring(-1) ;
+                colmn = parseInt(target_col.slice(1,2)) ;
                 colCard = popCard ;
                 columnArrayFill(move) ;
                 move = 3 ;
