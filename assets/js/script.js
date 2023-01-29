@@ -21,7 +21,7 @@ const colmn_8 = [];
 const colmn_9 = [];
 
 let click_time = 0 ; //* flag for mouse clicks
-let move = 0 ; //* flag for moving cards
+let move = 0 ; //* flag to determine whether card is being moved from or to the respective array
 let source_col = target_col = ""; //* to determine columnn in play area
 
 setupCards();
@@ -116,22 +116,22 @@ function dealCards () {
 function playCards() {
 
     click_time ++ ;
-    getClickCol(selected_col) ;
+    getClickCol(selected_col) ; //* get the selected card column id
     if ( click_time == 1 ) {
        card_1 = result ;  
-       source_col = selected_col ;
+       source_col = selected_col ; //* this is the first selected card
     }
     if ( click_time >= 2 ) {
         click_time = 0 ;
         card_2 = result ;
-        target_col = selected_col ;
+        target_col = selected_col ; //* this is the second selected card
         if ( card_1 < card_2 ) {
             alert('Legal move') ;
-            moveCard(source_col, target_col) ;
+            moveCard(source_col, target_col) ; //* if the move is valid then push the smaller card to the column with the higher card
             card_1 = card_2 = source_col = target_col = "" ;
         } else if 
             ( card_1 >= card_2 ) {
-                alert ('Illegal move');
+                alert ('Illegal move'); //* if the second card is equeal to or of lower value to the first card then no move is possible
                 card_1 = card_2 = source_col = target_col = "" ;
             }
         }
@@ -142,15 +142,15 @@ function moveCard() {
     move = 1 ;
     while ( move < 3 ) {
         if ( move == 1 ) {
-            colmn = parseInt(source_col.slice(1,2)) ;
-            colCard = card_1 ;
-            columnArrayFill(move) ;
+            colmn = parseInt(source_col.slice(1,2)) ; //* this is the source column to take the card from
+            colCard = card_1 ; //* this is the card to be removed
+            columnArrayFill(colmn) ; //* function to add or remove card .. in this case the card is being removed from the source column array
             move = 2 ;
         } else if 
             ( move == 2 ) {
-                colmn = parseInt(target_col.slice(1,2)) ;
-                colCard = popCard ;
-                columnArrayFill(move) ;
+                colmn = parseInt(target_col.slice(1,2)) ;  //* this is the target column to move the card to
+                colCard = popCard ;  //* this is the card to be moved
+                columnArrayFill(colmn) ; //* function to add or remove card .. in this case the card is being moved to the target column array
                 move = 3 ;
             }
         }
@@ -221,7 +221,6 @@ function columnArrayFill(colmn) {
                 errorAlert(errText);
             }
 }
-
 
 //* function to to push and pull cards in and out of each columns as the game is being played 
 function colmnZro(){
