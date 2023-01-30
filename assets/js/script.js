@@ -99,15 +99,12 @@ function dealCards () {
     array will be referenced during the course of play for calculating moves and scores */
 
     //* split the first 10 entries in the spare card array to place face up on the table
-        let flip_cards = spare_card.splice(0, 10);
-        for ( let colmn = 0 ; colmn < flip_cards.length ; colmn ++ ) {
-                var curr_flipcard = "c".concat(colmn) ;
-                document.getElementById(curr_flipcard).textContent = flip_cards[colmn];
-                colCard = flip_cards[colmn];
-                /** The following if else loop sends the card value of the current row
-                 * to the corresponding relative function to add that card to the column 
-                 * array where that card is to be placed in
-                 */
+        let curr_flip_cards = spare_card.splice(0, 10);
+        for ( let colmn = 0 ; colmn < curr_flip_cards.length ; colmn ++ ) {
+                var curr_flipcard_col = "c".concat(colmn) ;
+                document.getElementById(curr_flipcard_col).textContent = curr_flip_cards[colmn];
+                colCard = curr_flip_cards[colmn];
+                //* sends the card to the function to add that card to the current column array 
                 columnArrayFill(colmn, colCard);
         }
 }
@@ -230,11 +227,15 @@ function colmnZro(){
         popCard = colmn_0.pop();
         if (isNaN(colmn_0[colmn_0.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_0.splice(colmn_0.length -2, 1)) ; //* remove the card before the NaN
-            colmn_0.push(shiftCard[0]) ; //* push the card into the back of the 
+            colmn_0.push(shiftCard[0]) ; //* push the card into the back of the array
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
         colmn_0.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -249,10 +250,14 @@ function colmnOne(){
         if (isNaN(colmn_1[colmn_1.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_1.splice(colmn_1.length -2, 1)) ; //* remove the card before the NaN
             colmn_1.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }        
     } else if ( move == 2 ) {
         colmn_1.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -267,10 +272,14 @@ function colmnTwo(){
         if (isNaN(colmn_2[colmn_2.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_2.splice(colmn_2.length -2, 1)) ; //* remove the card before the NaN
             colmn_2.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
     colmn_2.push(colCard);
+    var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+    document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -285,10 +294,14 @@ function colmnThr(){
         if (isNaN(colmn_3[colmn_3.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_3.splice(colmn_3.length -2, 1)) ; //* remove the card before the NaN
             colmn_3.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {        
         colmn_3.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -303,10 +316,14 @@ function colmnFre(){
         if (isNaN(colmn_4[colmn_4.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_4.splice(colmn_4.length -2, 1)) ; //* remove the card before the NaN
             colmn_4.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
         colmn_4.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -321,10 +338,14 @@ function colmnFiv(){
         if (isNaN(colmn_5[colmn_5.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_5.splice(colmn_5.length -2, 1)) ; //* remove the card before the NaN
             colmn_5.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
         colmn_5.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -339,10 +360,14 @@ function colmnSix(){
         if (isNaN(colmn_6[colmn_6.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_6.splice(colmn_6.length -2, 1)) ; //* remove the card before the NaN
             colmn_6.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {    
         colmn_6.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -357,10 +382,14 @@ function colmnSev(){
         if (isNaN(colmn_7[colmn_7.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_7.splice(colmn_7.length -2, 1)) ; //* remove the card before the NaN
             colmn_7.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
         colmn_7.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -375,10 +404,14 @@ function colmnEgt(){
         if (isNaN(colmn_8[colmn_8.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_8.splice(colmn_8.length -2, 1)) ; //* remove the card before the NaN
             colmn_8.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
         colmn_8.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
@@ -393,10 +426,14 @@ function colmnNin(){
         if (isNaN(colmn_9[colmn_9.length -1])) { //* If the last card is now NaN
             shiftCard = (colmn_9.splice(colmn_9.length -2, 1)) ; //* remove the card before the NaN
             colmn_9.push(shiftCard[0]) ; //* push the card into the back of the 
+            var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+            document.getElementById(curr_flipcard).textContent = shiftCard[0]; //* flip card face up
             shiftCard.pop() ; //* clear the array for the next operation
         }
     } else if ( move == 2 ) {
         colmn_9.push(colCard);
+        var curr_flipcard = "c".concat(colmn) ; //* set the flip card column variable
+        document.getElementById(curr_flipcard).textContent = colCard; //* flip card face up
     } else {
         errText = arguments.callee.name ;
         errorAlert(errText);
