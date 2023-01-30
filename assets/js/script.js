@@ -105,14 +105,14 @@ function dealCards () {
                 document.getElementById(curr_flipcard).textContent = flip_cards[colmn];
                 colCard = flip_cards[colmn];
                 /** The following if else loop sends the card value of the current row
-                 * to the corresponding relative function to add that card to an array
-                 * for the column where that card is placed
+                 * to the corresponding relative function to add that card to the column 
+                 * array where that card is to be placed in
                  */
                 columnArrayFill(colmn, colCard);
         }
 }
 
-/** play the face up cards until all moves are done */
+/** play the face up cards until all moves are done or the deal button is clicked */
 function playCards() {
 
     click_time ++ ;
@@ -228,6 +228,11 @@ function colmnZro(){
         colmn_0.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_0.pop();
+        if (isNaN(colmn_0[colmn_0.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_0.splice(colmn_0.length -2, 1)) ; //* remove the card before the NaN
+            colmn_0.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
         colmn_0.push(colCard);
     } else {
@@ -241,6 +246,11 @@ function colmnOne(){
         colmn_1.push(colCard);      
     } else if ( move == 1 ) {
         popCard = colmn_1.pop();
+        if (isNaN(colmn_1[colmn_1.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_1.splice(colmn_1.length -2, 1)) ; //* remove the card before the NaN
+            colmn_1.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }        
     } else if ( move == 2 ) {
         colmn_1.push(colCard);
     } else {
@@ -254,6 +264,11 @@ function colmnTwo(){
         colmn_2.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_2.pop();
+        if (isNaN(colmn_2[colmn_2.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_2.splice(colmn_2.length -2, 1)) ; //* remove the card before the NaN
+            colmn_2.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
     colmn_2.push(colCard);
     } else {
@@ -267,6 +282,11 @@ function colmnThr(){
         colmn_3.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_3.pop();
+        if (isNaN(colmn_3[colmn_3.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_3.splice(colmn_3.length -2, 1)) ; //* remove the card before the NaN
+            colmn_3.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {        
         colmn_3.push(colCard);
     } else {
@@ -280,6 +300,11 @@ function colmnFre(){
         colmn_4.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_4.pop();
+        if (isNaN(colmn_4[colmn_4.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_4.splice(colmn_4.length -2, 1)) ; //* remove the card before the NaN
+            colmn_4.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
         colmn_4.push(colCard);
     } else {
@@ -293,6 +318,11 @@ function colmnFiv(){
         colmn_5.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_5.pop();
+        if (isNaN(colmn_5[colmn_5.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_5.splice(colmn_5.length -2, 1)) ; //* remove the card before the NaN
+            colmn_5.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
         colmn_5.push(colCard);
     } else {
@@ -306,6 +336,11 @@ function colmnSix(){
         colmn_6.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_6.pop();
+        if (isNaN(colmn_6[colmn_6.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_6.splice(colmn_6.length -2, 1)) ; //* remove the card before the NaN
+            colmn_6.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {    
         colmn_6.push(colCard);
     } else {
@@ -319,6 +354,11 @@ function colmnSev(){
         colmn_7.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_7.pop();
+        if (isNaN(colmn_7[colmn_7.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_7.splice(colmn_7.length -2, 1)) ; //* remove the card before the NaN
+            colmn_7.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
         colmn_7.push(colCard);
     } else {
@@ -332,6 +372,11 @@ function colmnEgt(){
         colmn_8.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_8.pop();
+        if (isNaN(colmn_8[colmn_8.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_8.splice(colmn_8.length -2, 1)) ; //* remove the card before the NaN
+            colmn_8.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
         colmn_8.push(colCard);
     } else {
@@ -345,6 +390,11 @@ function colmnNin(){
         colmn_9.push(colCard);
     } else if ( move == 1 ) {
         popCard = colmn_9.pop();
+        if (isNaN(colmn_9[colmn_9.length -1])) { //* If the last card is now NaN
+            shiftCard = (colmn_9.splice(colmn_9.length -2, 1)) ; //* remove the card before the NaN
+            colmn_9.push(shiftCard[0]) ; //* push the card into the back of the 
+            shiftCard.pop() ; //* clear the array for the next operation
+        }
     } else if ( move == 2 ) {
         colmn_9.push(colCard);
     } else {
