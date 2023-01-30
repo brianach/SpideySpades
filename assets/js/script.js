@@ -8,6 +8,8 @@ const spare_card = []; //* clone of card deck
 const row_deal = []; //* clone of face down cards
 const row_cards = []; //* temporary array for current face up cards
 
+const play_Deck_Div = document.getElementById("play-deck");
+
 //* arrays for each column
 const colmn_0 = [];
 const colmn_1 = [];
@@ -84,28 +86,45 @@ function setTable() {
         }
         //* add a null entry to differenciate the face down and face up cards
         for ( let colmn = 0 ; colmn < 10 ; colmn ++ ) { 
-                colCard = NaN;
-                columnArrayFill(colmn, colCard);
+                colCard = NaN ;
+                columnArrayFill(colmn, colCard) ;
             }        
 
     /** place the first row of playing cards */
-    dealCards();
+    dealCards() ;
 }
 
 /** deal the face up cards row */
 function dealCards () { 
 
+    alert("table setup") ;
+
     /** NOTE: At this point the face up row must be pushed into the face down array as that 
     array will be referenced during the course of play for calculating moves and scores */
 
     //* split the first 10 entries in the spare card array to place face up on the table
-        let curr_flip_cards = spare_card.splice(0, 10);
+    for ( let col_card_face_down = 0 ; col_card_face_down < 10 ; col_card_face_down ++ )
+    {
+        /* create a row of buttons representing face down cards */
+        const card_face_down = document.createElement("BUTTON") ;
+        card_face_down.setAttribute('id', col_card_face_down) ;
+        card_face_down.innerHTML = '<img src="assets/img/card-back-small.webp" />' ;
+        play_Deck_Div.appendChild(card_face_down) ;
+    }
+        let curr_flip_cards = spare_card.splice(0, 10) ;
         for ( let colmn = 0 ; colmn < curr_flip_cards.length ; colmn ++ ) {
                 var curr_flipcard_col = "c".concat(colmn) ;
-                document.getElementById(curr_flipcard_col).textContent = curr_flip_cards[colmn];
-                colCard = curr_flip_cards[colmn];
+
+                /* create the face up cards */
+                const card_face_up =  document.createElement("BUTTON") ;  
+                card_face_up.innerHTML = curr_flip_cards[colmn] ;           
+                play_Deck_Div.appendChild(card_face_up) ;
+
+                /*document.getElementById(curr_flipcard_col).textContent = curr_flip_cards[colmn];*/
+                colCard = curr_flip_cards[colmn] ;
+
                 //* sends the card to the function to add that card to the current column array 
-                columnArrayFill(colmn, colCard);
+                columnArrayFill(colmn, colCard) ;
         }
 }
 
