@@ -104,11 +104,12 @@ function dealCards () {
 
     //* split the first 10 entries in the spare card array to place face up on the table
     for ( let col_card_face_down = 0 ; col_card_face_down < 10 ; col_card_face_down ++ )
-    {
+    { 
+        var curr_face_down_col = "b".concat(col_card_face_down) ;
         /* create a row of buttons representing face down cards */
         const card_face_down = document.createElement("BUTTON") ;
-        card_face_down.setAttribute('id', col_card_face_down) ;
-        card_face_down.innerHTML = '<img src="assets/img/card-back-small.webp" />' ;
+        card_face_down.setAttribute('id', curr_face_down_col) ;
+        card_face_down.innerHTML = '<img src="assets/img/card-back-small.webp" />';
         play_Deck_Div.appendChild(card_face_down) ;
     }
         let curr_flip_cards = spare_card.splice(0, 10) ;

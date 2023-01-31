@@ -17,13 +17,24 @@ h1 {
     margin-right: auto;
 }
 
-.play-deck {
+#play-deck {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto;
     gap: 1%;
     height: 80%;
 }
+
+/*img {
+    box-sizing: border-box;
+    display: block;
+    object-fit: contain;
+    width: 50%;
+    height: 50%;
+    margin: 0;
+    border: 0;
+    padding: 3px;
+  }*/
 
 .btn:focus {
     border-color: yellowgreen;
